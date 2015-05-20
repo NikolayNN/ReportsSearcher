@@ -1,0 +1,26 @@
+<div class="block">
+    <form>
+        <label>Start date:</label>
+        <input type="text" name="start_date" value=""> <br/>
+        <label>End date:</label>
+        <input type="text" name="end_date" value=""> <br/>
+        <label> Performer </label>
+        <select>
+            <option>---</option>
+            <option>All performer</option>
+        </select>
+        <br/>
+        <label>Time period </label>
+        <select>
+            <option>---</option>
+            <option>Last Qtr</option>
+            <option>Last Month</option>
+            <option>Last Calendar Year</option>
+            <option>Current Year to Date</option>
+            <option>Current Qtr to Date</option>
+            <option>Current Month to Date</option>
+        </select><br />
+
+        <input type="submit" value="Submit">
+    </form>
+</div>

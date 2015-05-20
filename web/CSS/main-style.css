@@ -1,0 +1,29 @@
+body{
+    background: #B5B5B5;
+}
+
+.logo-div{
+    text-align: center;
+}
+
+label{
+    font-weight: bold;
+}
+
+input, select{
+    margin: 10px;
+}
+
+div{
+    background: white;
+    padding: 20px;
+}
+
+.main-div{
+
+    margin: 0 auto;
+    width: 400px;
+    height: 600px;
+}
+
+
