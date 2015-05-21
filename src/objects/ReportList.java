@@ -14,7 +14,7 @@ public class ReportList {
 
     private ArrayList<Report> reportList = new ArrayList<Report>();
 
-    public ArrayList<Report> setReportList(){
+    public void setReportList(){
         try {
 
             Connection conn = ConnectionConfiguration.getConnection();
@@ -28,6 +28,11 @@ public class ReportList {
         }catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+    public ArrayList<Report> getReportList(){
+        if (reportList==null) setReportList();
         return reportList;
     }
 }

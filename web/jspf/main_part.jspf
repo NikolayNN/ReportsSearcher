@@ -1,15 +1,25 @@
+<%@ page import="objects.Report" %>
 <div class="block">
+    <jsp:useBean id="reportList" class="objects.ReportList" scope="page"/>
+    <%reportList.setReportList();%>
     <form>
         <label>Start date:</label>
         <input type="text" name="start_date" value=""> <br/>
         <label>End date:</label>
         <input type="text" name="end_date" value=""> <br/>
+
         <label> Performer </label>
+
+
         <select>
-            <option>---</option>
             <option>All performer</option>
+            <jsp:useBean id="report" class="objects.Report" scope="page" />
+            <%for(String performer : report.getPerformerSet()) {%>
+            <option><%=performer%></option>
+            <%}%>
         </select>
         <br/>
+
         <label>Time period </label>
         <select>
             <option>---</option>

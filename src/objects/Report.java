@@ -1,7 +1,15 @@
 package objects;
 
 
+import conection.ConnectionConfiguration;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by Nikolay on 21.05.2015.
@@ -10,16 +18,39 @@ public class Report {
     private int id;
     private Date startDate;
     private Date endDate;
-    private String Performer;
-    private String Activity;
+    private String performer;
+    private String activity;
+    private Set<String> performersSet;
 
+    public Report() {
+    }
 
     public Report(int id, Date startDate, Date endDate, String performer, String activity) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
-        Performer = performer;
-        Activity = activity;
+        this.performer = performer;
+        this.activity = activity;
+    }
+
+    public void setPerformersSet(){
+        try {
+
+            Connection conn = ConnectionConfiguration.getConnection();
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery("select performer as performer from reports order by performer");
+            performersSet = new HashSet<String>();
+            while (rs.next()){
+                performersSet.add(rs.getString("performer"));
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public Set<String> getPerformerSet(){
+       if (performersSet==null) setPerformersSet();
+       return performersSet;
     }
 
     public int getId() {
@@ -35,10 +66,10 @@ public class Report {
     }
 
     public String getPerformer() {
-        return Performer;
+        return performer;
     }
 
     public String getActivity() {
-        return Activity;
+        return activity;
     }
 }
