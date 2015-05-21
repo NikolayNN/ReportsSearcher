@@ -25,7 +25,7 @@ public class ConnectionConfiguration {
             return connection;
         }
 
-    // Test connection to data base
+    // ConvertData connection to data base
         public static void main(String[] args) {
             Connection connection = null;
 

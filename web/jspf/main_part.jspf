@@ -1,21 +1,17 @@
 <%@ page import="objects.Report" %>
 <div class="block">
-    <jsp:useBean id="reportList" class="objects.ReportList" scope="page"/>
-    <%reportList.setReportList();%>
+
     <form>
         <label>Start date:</label>
         <input type="text" name="start_date" value=""> <br/>
         <label>End date:</label>
         <input type="text" name="end_date" value=""> <br/>
-
         <label> Performer </label>
-
-
-        <select>
-            <option>All performer</option>
+        <select name="selector">
+            <option value="all">All performer</option>
             <jsp:useBean id="report" class="objects.Report" scope="page" />
             <%for(String performer : report.getPerformerSet()) {%>
-            <option><%=performer%></option>
+            <option value="<%=performer%>"><%=performer%></option>
             <%}%>
         </select>
         <br/>
@@ -30,7 +26,6 @@
             <option>Current Qtr to Date</option>
             <option>Current Month to Date</option>
         </select><br />
-
         <input type="submit" value="Submit">
     </form>
 </div>

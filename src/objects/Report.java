@@ -6,7 +6,6 @@ import conection.ConnectionConfiguration;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -23,6 +22,26 @@ public class Report {
     private Set<String> performersSet;
 
     public Report() {
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public void setPerformer(String performer) {
+        this.performer = performer;
+    }
+
+    public void setActivity(String activity) {
+        this.activity = activity;
     }
 
     public Report(int id, Date startDate, Date endDate, String performer, String activity) {
