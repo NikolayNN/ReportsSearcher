@@ -30,7 +30,7 @@ public class ReportList {
     }
 
     public ArrayList<Report> getReportList(){
-        if (reportList==null) setReportList();
+
         return reportList;
     }
 
@@ -39,8 +39,9 @@ public class ReportList {
         try {
             Connection conn = ConnectionConfiguration.getConnection();
             Statement stmt = conn.createStatement();
-            String sqlReport = "WHERE  DATE_FORMAT(start_date,'%Y-%m-%d')>'"+ConvertData.parseDate(startDate)+"' and DATE_FORMAT(end_date,'%Y-%m-%d')<'"+ConvertData.parseDate(endDate)+"'";
-            ResultSet rs = stmt.executeQuery("");
+            String sqlReport = "SELECT *FROM reports WHERE  DATE_FORMAT(start_date,'%Y-%m-%d')>'"+ConvertData.parseDate(startDate)+"' and DATE_FORMAT(end_date,'%Y-%m-%d')<'"+ConvertData.parseDate(endDate)+"'";
+            System.out.println("sqlReport  "+sqlReport);
+            ResultSet rs = stmt.executeQuery(sqlReport);
             reportList = new ArrayList<>();
             while (rs.next()) {
                 Report report = new Report(rs.getInt("id"), rs.getDate("start_date"), rs.getDate("end_date"), rs.getString("performer"), rs.getString("activity"));
@@ -50,6 +51,21 @@ public class ReportList {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static void main(String[] args) {
+        ReportList reportList = new ReportList();
+        reportList.getReportListByDateAndPerformer("jan 1,2015","dec 1,2015","all");
+        System.out.println(reportList.getReportList().size());
+        for (Report report :reportList.getReportList() ) {
+            System.out.println(report.getStartDate());
+            System.out.println(report.getEndDate());
+            System.out.println(report.getPerformer());
+            System.out.println(report.getActivity());
+            System.out.println("--------------------------------");
+        }
+
+
     }
 
 }

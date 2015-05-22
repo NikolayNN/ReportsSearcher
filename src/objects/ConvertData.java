@@ -1,5 +1,6 @@
 package objects;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -9,17 +10,19 @@ import java.util.Locale;
  * Created by Nikolay on 21.05.2015.
  */
 public class ConvertData {
-     public static String parseDate(String inputDate){
-        //Sep 1,2005
-        SimpleDateFormat format = new SimpleDateFormat("MMM d,YYYY", Locale.US);
+    private static final DateFormat
+            DATE_FORMAT_DASH_SEPARATED = new SimpleDateFormat("yyyy-MM-dd");
+    private static final DateFormat
+            DATE_FORMAT_STRING_COMMA_SEPARATED = new SimpleDateFormat("MMM d,yyyy", Locale.US);
+
+    //Input Example - Sep 1,2005
+    public static String parseDate(String inputDate){
         Date date = null;
         try {
-            date = format.parse(inputDate);
+            date = DATE_FORMAT_STRING_COMMA_SEPARATED.parse(inputDate);
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
-        return date.getYear()+"-"+date.getMonth()+"-"+date.getDay();
+        return DATE_FORMAT_DASH_SEPARATED.format(date);
     }
-
 }
