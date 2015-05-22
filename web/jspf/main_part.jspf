@@ -2,22 +2,43 @@
 <div class="block">
 
     <form method="post" action="${pageContext.request.contextPath}/pages/report.jsp">
-        <p><label>Start date:
-        <input type="text" name="start_date" value=""></label></p>
 
-        <p><label>End date:
-        <input type="text" name="end_date" value=""></label></p>
+        <div class="field">
+            <p>
+                <label>Start date:
+                    <input type="text" name="start_date" value="" id="startDate" onchange='formValidate()'>
+                </label>
+            </p>
+        </div>
 
-        <p><label> Performer
-        <select name="performer">
-            <option value="all">All performer</option>
-            <jsp:useBean id="report" class="objects.Report" scope="page" />
-            <%for(String performer : report.getPerformerSet()) {%>
-            <option value="<%=performer%>"><%=performer%></option>
-            <%}%>
-        </select></label></p>
-        <input type="submit" value="Submit">
+        <div class="field">
+            <p>
+                <label>End date:
+                    <input type="text" name="end_date" value="" id="endDate">
+                </label>
+            </p>
+        </div>
+
+        <div class="field">
+            <p>
+                <label> Performer
+                    <select name="performer">
+                        <option value="all">All performer</option>
+                        <jsp:useBean id="report" class="objects.Report" scope="page" />
+                        <%for(String performer : report.getPerformerSet()) {%>
+                        <option value="<%=performer%>"><%=performer%></option>
+                        <%}%>
+                    </select>
+                </label>
+            </p>
+        </div>
+
+        <div class="field">
+            <input type="submit" value="Submit">
+        </div>
+
     </form>
+
     <form >
         <label>Time period </label>
         <select type="submit">
