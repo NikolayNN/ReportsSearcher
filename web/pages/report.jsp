@@ -7,11 +7,11 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+
+
 <jsp:useBean id="reportList" class="objects.ReportList" scope="page"/>
-
-
-<jsp:useBean id="reportList" class="objects.ReportList">
-  <%reportList.getReportListByDateAndPerformer(request.getParameter("start_date"), request.getParameter("end_date"), request.getParameter("performer"))
+  <%reportList.setReportListByDateAndPerformer(request.getParameter("start_date"), request.getParameter("end_date"), request.getParameter("performer"));
   for (Report report : reportList.getReportList()){%>
   <p><%= report.getStartDate()%></p>
     <p><%=report.getEndDate()%></p>
