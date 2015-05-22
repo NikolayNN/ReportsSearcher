@@ -16,10 +16,11 @@
             <option value="<%=performer%>"><%=performer%></option>
             <%}%>
         </select></label></p>
-
-
+        <input type="submit" value="Submit">
+    </form>
+    <form >
         <label>Time period </label>
-        <select>
+        <select type="submit">
             <option>---</option>
             <option>Last Qtr</option>
             <option>Last Month</option>
@@ -28,6 +29,5 @@
             <option>Current Qtr to Date</option>
             <option>Current Month to Date</option>
         </select><br />
-        <input type="submit" value="Submit">
     </form>
 </div>

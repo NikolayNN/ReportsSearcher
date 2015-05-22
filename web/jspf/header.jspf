@@ -3,6 +3,9 @@
 <head>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/CSS/main-style.css">
     <title>Test JSP</title>
+    <script>
+        alert("Hello javascript!!!")
+    </script>
 
 </head>
 <body>
