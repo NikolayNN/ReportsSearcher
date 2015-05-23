@@ -1,13 +1,14 @@
 <%@ page import="objects.Report" %>
 <div class="block">
 
-    <form method="post" action="${pageContext.request.contextPath}/pages/report.jsp">
+    <form onsubmit='return formValidate()' id="main-form" onkeypress="if(event.keyCode == 13)return false;   " method="post" action="${pageContext.request.contextPath}/pages/report.jsp">
 
         <div class="field">
             <p>
                 <label>Start date:
-                    <input type="text" name="start_date" value="" id="startDate" onchange='formValidate()'>
+                    <input type="text" name="start_date" value="" id="startDate">
                 </label>
+                <span style='color:red' id='start-date'></span>
             </p>
         </div>
 
@@ -16,6 +17,7 @@
                 <label>End date:
                     <input type="text" name="end_date" value="" id="endDate">
                 </label>
+                <span style='color:red' id='end-date'></span>
             </p>
         </div>
 
