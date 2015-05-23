@@ -36,12 +36,14 @@ var daysInMonth = function(date) {
 
 var  dateAutocompletion = function () {
 
-
-
     var requestStr = document.getElementById("date-select"); // Получаем наш список
     var requestStrValue = requestStr.options[requestStr.selectedIndex].text; // Получаем значение выделенного элемента (в нашем случае fruit2).
     if(requestStrValue=="Last Month"){lastMonth();}
     if(requestStrValue=="Last Calendar Year"){lastCalendarYear();}
+    if(requestStrValue=="Current Year to Date"){currenYearToDate();}
+    if(requestStrValue=="Current Month to Date"){currentMonthToDate();}
+    if(requestStrValue=="---"){allDate();}
+
 
 }
 
@@ -66,14 +68,13 @@ var chooseMonth = function(date) {
 
 
 var lastMonth = function() {
-        console.log("last month");
+
        var currentDate = new Date();
        var startDate = new Date();
 
         startDate.setMonth(currentDate.getMonth() - 1);
 
          var sMonth = chooseMonth(startDate);
-
          var sYear = startDate.getYear() + 1900;
          var sDay = 1;
          var sDateStr = sMonth + " " + sDay + "," + sYear;
@@ -85,14 +86,12 @@ var lastMonth = function() {
 
         document.getElementById('startDate').value = sDateStr;
         document.getElementById('endDate').value = eDateStr;
-        console.log(currentDate);
-    delete currentDate;
-    delete startDate;
-    }
+
+}
 
 
 var lastCalendarYear = function(){
-    console.log("last calendar year");
+
     var currentDate = new Date();
     var startDate = new Date();
     startDate.setFullYear(currentDate.getFullYear()-1);
@@ -109,12 +108,51 @@ var lastCalendarYear = function(){
 
     document.getElementById('startDate').value = sDateStr;
     document.getElementById('endDate').value = eDateStr;
-    console.log(currentDate);
-    delete currentDate;
-    delete startDate;
 
 }
 
+var currenYearToDate = function(){
+    var currentDate = new Date();
+
+    var sMonth = "Jan";
+    var sYear = currentDate.getYear()+1900;
+    var sDay =1;
+    var sDateStr = sMonth+" "+sDay+","+sYear;
+
+    var eMonth = chooseMonth(currentDate);
+    var eDay = currentDate.getDate();
+    var eYear = currentDate.getYear()+1900;
+    var eDateStr = eMonth+" "+eDay+","+eYear;
+
+    document.getElementById('startDate').value = sDateStr;
+    document.getElementById('endDate').value = eDateStr;
+}
+
+var currentMonthToDate = function(){
+    var currentDate = new Date();
+
+
+    var sMonth = chooseMonth(currentDate);
+    var sYear = currentDate.getYear() + 1900;
+    var sDay = 1;
+    var sDateStr = sMonth + " " + sDay + "," + sYear;
+
+    var eMonth = chooseMonth(currentDate);
+    var eDay = currentDate.getDate();
+    var eYear = currentDate.getYear()+1900;
+    var eDateStr = eMonth+" "+eDay+","+eYear;
+
+    document.getElementById('startDate').value = sDateStr;
+    document.getElementById('endDate').value = eDateStr;
+
+}
+
+var allDate = function(){
+    document.getElementById('startDate').value = "";
+    document.getElementById('endDate').value = "";
+
+
+}
 
 
 
