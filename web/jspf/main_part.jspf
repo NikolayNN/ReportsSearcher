@@ -43,14 +43,14 @@
 
     <form >
         <label>Time period </label>
-        <select type="submit">
-            <option>---</option>
-            <option>Last Qtr</option>
-            <option>Last Month</option>
-            <option>Last Calendar Year</option>
-            <option>Current Year to Date</option>
-            <option>Current Qtr to Date</option>
-            <option>Current Month to Date</option>
+        <select type="submit" onchange='dateAutocompletion()' name = "date-select" id="date-select">
+            <option >---</option>
+            <option >Last Qtr</option>
+            <option >Last Month</option>
+            <option >Last Calendar Year</option>
+            <option >Current Year to Date</option>
+            <option >Current Qtr to Date</option>
+            <option >Current Month to Date</option>
         </select><br />
     </form>
 </div>
