@@ -1,13 +1,17 @@
 var formValidate = function (){
 
+
+
+    // regular expresion for date
+    var re = /(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)+ \d{1,2},\d\d\d\d/i;
+//todo сделать отдельной функцией и переменными
+    autocompletionIfNull();
     //Read value from fileds "startDate" and "End Date"
     var startDate = document.getElementById('startDate');
     var startDateValue = startDate.value;
     var endDate = document.getElementById('endDate');
     var endDateValue = endDate.value;
 
-    // regular expresion for date
-    var re = /(jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec)+ \d{1,2},\d\d\d\d/i;
 
     //if field "startDate" has incorect date format, then error message is displayed and form don't send
     if (!re.test(startDateValue)){
@@ -24,6 +28,25 @@ var formValidate = function (){
          else{ document.getElementById('end-date').innerHTML='OK!'; document.getElementById('end-date').style.color="green"}
 }
 
+// autocompletion date fields if startDate="" or/and endDate =""
+var autocompletionIfNull = function() {
+
+
+
+    if ((document.getElementById('startDate').value == "") || (document.getElementById('endDate').value == "")) {
+        if ((document.getElementById('startDate').value === "")) {
+            document.getElementById('startDate').value = dateToSting(new Date(1900, 0, 1));
+        }
+
+        if ((document.getElementById('endDate').value === "")) {
+
+            console.log("111111");
+            document.getElementById('endDate').value = dateToSting(currentDate);
+        }
+
+        return true;
+    }
+}
 
 
 
@@ -40,13 +63,14 @@ var  dateAutocompletion = function () {
     if(requestStrValue=="Current Month to Date"){currentMonthToDate();}
     if(requestStrValue=="---"){allDate();}
     if(requestStrValue=="Last Qtr"){lastQtr();}
+    if(requestStrValue=="Current Qtr to Date"){currentQtrToDate();}
 
 }
 
 // calulate amount days in the month
 var daysInMonth = function(date) {
     var year = date.getFullYear();
-    var month = date.getMonth()+1;
+    var month = date.getMonth();
     return 32 - new Date(year, month, 32).getDate();
 };
 
@@ -70,84 +94,38 @@ var chooseMonth = function(date) {
     return months[date.getMonth()+1];
 }
 
+var setValueForElements = function(startDate,endDate){
+    document.getElementById('startDate').value = dateToSting(startDate);
+    document.getElementById('endDate').value = dateToSting(endDate);
+}
+
 // menu /lastMonth/
 var lastMonth = function() {
-
-       var startDate = new Date();
-
-        startDate.setMonth(currentDate.getMonth() - 1);
-
-         var sMonth = chooseMonth(startDate);
-         var sYear = startDate.getYear() + 1900;
-         var sDay = 1;
-         var sDateStr = sMonth + " " + sDay + "," + sYear;
-
-         var eMonth = sMonth;
-         var eDay = daysInMonth(currentDate);
-         var eYear = currentDate.getYear() + 1900;
-         var eDateStr = eMonth + " " + eDay + "," + eYear;
-
-        document.getElementById('startDate').value = sDateStr;
-        document.getElementById('endDate').value = eDateStr;
-
+    if((CURRENT_MONTH-1)===-1){
+        startDateL = new Date(CURRENT_YEAR-1,11,1);
+        endDateL = new Date(startDateL,daysInMonth(startDateL));
+        setValueForElements(startDateL, endDateL);
+        return;
+    }
+    startDateL = new Date(CURRENT_YEAR, CURRENT_MONTH-1,1);
+    endDateL = new Date(CURRENT_YEAR, CURRENT_MONTH-1, daysInMonth(startDateL));
+    setValueForElements(startDateL, endDateL);
 }
 
 //menu /lastCalendarYear/
 var lastCalendarYear = function(){
-
-    //var currentDate = new Date();
-    var startDate = new Date();
-    startDate.setFullYear(currentDate.getFullYear()-1);
-
-    var sMonth = "Jan";
-    var sYear = startDate.getYear()+1900;
-    var sDay =1;
-    var sDateStr = sMonth+" "+sDay+","+sYear;
-
-    var eMonth = "Dec";
-    var eDay = 31;
-    var eYear = startDate.getYear()+1900;
-    var eDateStr = eMonth+" "+eDay+","+eYear;
-
-    document.getElementById('startDate').value = sDateStr;
-    document.getElementById('endDate').value = eDateStr;
-
+    setValueForElements( new Date(CURRENT_YEAR-1,0,1), new Date(CURRENT_YEAR-1,11,31));
 }
 
 // menu /currentYearToDate/
 var currenYearToDate = function(){
-    //var currentDate = new Date();
-
-    var sMonth = "Jan";
-    var sYear = currentDate.getYear()+1900;
-    var sDay =1;
-    var sDateStr = sMonth+" "+sDay+","+sYear;
-
-    var eMonth = chooseMonth(currentDate);
-    var eDay = currentDate.getDate();
-    var eYear = currentDate.getYear()+1900;
-    var eDateStr = eMonth+" "+eDay+","+eYear;
-
-    document.getElementById('startDate').value = sDateStr;
-    document.getElementById('endDate').value = eDateStr;
+    setValueForElements(new Date(CURRENT_YEAR,0,1),currentDate);
 }
 
 var currentMonthToDate = function(){
-    //var currentDate = new Date();
 
+    setValueForElements(new Date (CURRENT_YEAR,CURRENT_MONTH,1),currentDate);
 
-    var sMonth = chooseMonth(currentDate);
-    var sYear = currentDate.getYear() + 1900;
-    var sDay = 1;
-    var sDateStr = sMonth + " " + sDay + "," + sYear;
-
-    var eMonth = chooseMonth(currentDate);
-    var eDay = currentDate.getDate();
-    var eYear = currentDate.getYear()+1900;
-    var eDateStr = eMonth+" "+eDay+","+eYear;
-
-    document.getElementById('startDate').value = sDateStr;
-    document.getElementById('endDate').value = eDateStr;
 
 }
 
@@ -174,6 +152,11 @@ var QTR_0_END = new Date(YEAR-1,11,31);
 
 var qtrBeginDate;
 var qtrEndDate;
+var startDateL;
+var endDateL;
+var CURRENT_MONTH = currentDate.getMonth();
+var CURRENT_YEAR = currentDate.getFullYear();
+
 
 var defineNumberCurrentQtr =    function(){
     if((currentDate>QTR_1_BEGIN)&&(currentDate<QTR_1_END)){return 1;}
@@ -218,14 +201,13 @@ var dateToSting = function(date)
 var lastQtr = function(){
     var lastQtrNumb = defineNumberCurrentQtr()-1;
     setQtrDate(lastQtrNumb);
-    document.getElementById('startDate').value = dateToSting(qtrBeginDate);
-    document.getElementById('endDate').value = dateToSting(qtrEndDate);
+    setValueForElements(qtrBeginDate,qtrEndDate);
 }
-// for menu /Current Monyh to Date/
-var currentMonthToDate = function(){
+// for menu /Current Month to Date/
+var currentQtrToDate = function(){
     var currentQtr = defineNumberCurrentQtr();
-    document.getElementById('startDate').value = dateToSting(qtrBeginDate);
-    document.getElementById('endDate').value = dateToSting(currentDate);
+    setQtrDate(currentQtr);
+    setValueForElements(qtrBeginDate,currentDate)
 }
 
 

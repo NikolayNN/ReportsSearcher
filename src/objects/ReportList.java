@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Date;
 
 
 /**
@@ -33,7 +34,7 @@ public class ReportList {
 
         return reportList;
     }
-
+//todo
     public ArrayList<Report> setReportListByDateAndPerformer(String startDate, String endDate, String performer) {
 
         String sqlReport;
@@ -43,7 +44,7 @@ public class ReportList {
             if (performer.equalsIgnoreCase("all")) {
                 sqlReport = "SELECT *FROM reports WHERE  DATE_FORMAT(start_date,'%Y-%m-%d')>'" + ConvertData.parseDate(startDate) + "' and DATE_FORMAT(end_date,'%Y-%m-%d')<'" + ConvertData.parseDate(endDate) + "' ORDER by id";
             }else sqlReport="SELECT *FROM reports WHERE  DATE_FORMAT(start_date,'%Y-%m-%d')>'" + ConvertData.parseDate(startDate) + "' and DATE_FORMAT(end_date,'%Y-%m-%d')<'" + ConvertData.parseDate(endDate) +"' and performer = '" + performer + "' ORDER by id";
-            System.out.println("sql req  "+ sqlReport);
+
             ResultSet rs = stmt.executeQuery(sqlReport);
             reportList = new ArrayList<>();
             while (rs.next()) {

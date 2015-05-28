@@ -15,7 +15,7 @@ public class ConvertData {
     private static final DateFormat
             DATE_FORMAT_STRING_COMMA_SEPARATED = new SimpleDateFormat("MMM d,yyyy", Locale.US);
 
-    //Input Example - Sep 1,2005
+    //Input Example - Sep 1,2005 output 2005-09-01
     public static String parseDate(String inputDate){
         Date date = null;
         try {
@@ -25,4 +25,10 @@ public class ConvertData {
         }
         return DATE_FORMAT_DASH_SEPARATED.format(date);
     }
+
+    public static String DateConvert (Date date){
+        return DATE_FORMAT_STRING_COMMA_SEPARATED.format(date);
+    }
+
+
 }

@@ -11,15 +11,18 @@
 
 
 <jsp:useBean id="reportList" class="objects.ReportList" scope="page"/>
+<table>
   <%reportList.setReportListByDateAndPerformer(request.getParameter("start_date"), request.getParameter("end_date"), request.getParameter("performer"));
+
   for (Report report : reportList.getReportList()){%>
-  <p><%= report.getStartDate()%></p>
+
+<p><%= report.getStartDate()%></p>
     <p><%=report.getEndDate()%></p>
     <p><%=report.getPerformer()%></p>
     <p><%=report.getActivity()%></p>
     <hr />
   <%}%>
-
+</table>
 
 
 
